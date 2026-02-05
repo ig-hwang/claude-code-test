@@ -39,9 +39,14 @@ api.interceptors.response.use(
 
 // 매물 API
 export const propertyAPI = {
-  // 매물 목록 조회
-  getProperties: (params = {}) => {
-    return api.get('/properties', { params });
+  // 실거래가 내역 조회 (시세 분석용)
+  getTradeHistory: (params = {}) => {
+    return api.get('/properties/trades', { params });
+  },
+
+  // 현재 매물 조회 (부동산114)
+  getCurrentListings: (params = {}) => {
+    return api.get('/properties/listings', { params });
   },
 
   // 매물 상세 조회

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { BarChart3, List } from 'lucide-react';
+import { BarChart3, List, ShoppingCart } from 'lucide-react';
 import Header from './components/layout/Header';
 import Sidebar from './components/layout/Sidebar';
 import PropertyList from './components/property/PropertyList';
 import Dashboard from './components/analysis/Dashboard';
-import { useProperties } from './hooks/useProperties';
+import { useTradeHistory, useCurrentListings } from './hooks/useProperties';
 
 function App() {
-  const [activeTab, setActiveTab] = useState('dashboard'); // 'dashboard' or 'properties'
+  const [activeTab, setActiveTab] = useState('dashboard'); // 'dashboard', 'trades', 'listings'
   const [filters, setFilters] = useState({
     property_type: null,
     min_area: null,
@@ -16,7 +16,23 @@ function App() {
     max_price: null,
   });
 
-  const { properties, loading, error, pagination, fetchProperties } = useProperties(filters);
+  // 실거래가 데이터 (시세 분석용)
+  const {
+    properties: tradeHistory,
+    loading: tradesLoading,
+    error: tradesError,
+    pagination: tradesPagination,
+    fetchProperties: fetchTrades
+  } = useTradeHistory(filters);
+
+  // 현재 매물 데이터 (부동산114)
+  const {
+    properties: currentListings,
+    loading: listingsLoading,
+    error: listingsError,
+    pagination: listingsPagination,
+    fetchProperties: fetchListings
+  } = useCurrentListings(filters, activeTab === 'listings');
 
   const handleFilterChange = (newFilters) => {
     setFilters((prev) => ({
@@ -33,10 +49,6 @@ function App() {
       min_price: null,
       max_price: null,
     });
-  };
-
-  const handlePageChange = (page) => {
-    fetchProperties({ page });
   };
 
   return (
@@ -62,32 +74,56 @@ function App() {
               }`}
             >
               <BarChart3 className="w-5 h-5 mr-2" />
-              시세 분석 대시보드
+              시세 분석
             </button>
             <button
-              onClick={() => setActiveTab('properties')}
+              onClick={() => setActiveTab('trades')}
               className={`flex items-center px-6 py-3 rounded-lg font-medium transition-colors ${
-                activeTab === 'properties'
+                activeTab === 'trades'
                   ? 'bg-blue-600 text-white shadow-md'
                   : 'bg-white text-gray-700 hover:bg-gray-100'
               }`}
             >
               <List className="w-5 h-5 mr-2" />
-              매물 목록
+              실거래가 내역
+            </button>
+            <button
+              onClick={() => setActiveTab('listings')}
+              className={`flex items-center px-6 py-3 rounded-lg font-medium transition-colors ${
+                activeTab === 'listings'
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : 'bg-white text-gray-700 hover:bg-gray-100'
+              }`}
+            >
+              <ShoppingCart className="w-5 h-5 mr-2" />
+              현재 매물
             </button>
           </div>
 
           {/* 콘텐츠 */}
           {activeTab === 'dashboard' ? (
-            <Dashboard properties={properties} />
+            <Dashboard properties={tradeHistory} />
+          ) : activeTab === 'trades' ? (
+            <PropertyList
+              properties={tradeHistory}
+              loading={tradesLoading}
+              error={tradesError}
+              pagination={tradesPagination}
+              onPageChange={(page) => fetchTrades({ page })}
+              onRetry={() => fetchTrades()}
+              title="실거래가 내역"
+              description="국토교통부 실거래가 데이터"
+            />
           ) : (
             <PropertyList
-              properties={properties}
-              loading={loading}
-              error={error}
-              pagination={pagination}
-              onPageChange={handlePageChange}
-              onRetry={() => fetchProperties()}
+              properties={currentListings}
+              loading={listingsLoading}
+              error={listingsError}
+              pagination={listingsPagination}
+              onPageChange={(page) => fetchListings({ page })}
+              onRetry={() => fetchListings()}
+              title="현재 매물"
+              description="부동산114 현재 판매 중인 매물 (호가)"
             />
           )}
         </main>

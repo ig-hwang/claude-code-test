@@ -5,7 +5,16 @@ import PropertyDetail from './PropertyDetail';
 import Loading from '../common/Loading';
 import ErrorMessage from '../common/ErrorMessage';
 
-const PropertyList = ({ properties, loading, error, pagination, onPageChange, onRetry }) => {
+const PropertyList = ({
+  properties,
+  loading,
+  error,
+  pagination,
+  onPageChange,
+  onRetry,
+  title = "매물 목록",
+  description = null
+}) => {
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
   const [selectedProperty, setSelectedProperty] = useState(null);
 
@@ -21,6 +30,9 @@ const PropertyList = ({ properties, loading, error, pagination, onPageChange, on
     return (
       <div className="text-center py-12">
         <p className="text-gray-500">매물이 없습니다.</p>
+        {description && (
+          <p className="text-sm text-gray-400 mt-2">{description}</p>
+        )}
       </div>
     );
   }
@@ -32,9 +44,10 @@ const PropertyList = ({ properties, loading, error, pagination, onPageChange, on
       {/* 헤더 */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">매물 목록</h2>
+          <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
           <p className="text-sm text-gray-600 mt-1">
-            총 {pagination.total.toLocaleString()}건의 매물
+            총 {pagination.total.toLocaleString()}건
+            {description && ` - ${description}`}
           </p>
         </div>
 

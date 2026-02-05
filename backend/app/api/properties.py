@@ -13,8 +13,8 @@ from app.core.config import settings
 router = APIRouter()
 
 
-@router.get("", response_model=PropertyListResponse)
-async def get_properties(
+@router.get("/trades", response_model=PropertyListResponse)
+async def get_trade_history(
     page: int = Query(1, ge=1, description="페이지 번호"),
     page_size: int = Query(50, ge=1, le=100, description="페이지 크기"),
     property_type: Optional[PropertyType] = Query(None, description="매물 유형"),
@@ -23,32 +23,21 @@ async def get_properties(
     min_price: Optional[int] = Query(None, ge=0, description="최소 가격(만원)"),
     max_price: Optional[int] = Query(None, ge=0, description="최대 가격(만원)"),
     apartment_name: Optional[str] = Query(None, description="아파트명"),
-    months: int = Query(12, ge=1, le=24, description="조회 개월 수"),
-    use_crawler: bool = Query(True, description="크롤링 데이터 포함 여부")
+    months: int = Query(12, ge=1, le=24, description="조회 개월 수")
 ):
     """
-    매물 목록 조회
+    실거래가 내역 조회 (시세 분석용)
 
-    마포구의 부동산 실거래 매물 목록을 조회합니다.
-    공공데이터 API + 부동산114 크롤링 데이터 통합 제공
-
-    주의: 크롤링 데이터는 학습/개인 프로젝트 용도로만 사용하세요.
+    국토교통부 실거래가 데이터를 조회합니다.
+    시세 분석, 가격 추이 등에 사용됩니다.
     """
     try:
-        # 1. 공공데이터 API에서 실거래가 조회
+        # 국토교통부 실거래가 데이터만 조회
         all_properties = await molit_service.fetch_all_properties(
             settings.MAPO_REGION_CODE, months
         )
 
-        # 2. 부동산 데이터 추가 (최근 1년치)
-        if use_crawler:
-            try:
-                crawler_properties = r114_crawler.crawl_mapo_apartments(limit=1200)
-                all_properties.extend(crawler_properties)
-                print(f"📊 데이터 통합: 공공데이터 {len(all_properties) - len(crawler_properties)}건 + 수집데이터 {len(crawler_properties)}건 = 총 {len(all_properties)}건")
-            except Exception as e:
-                print(f"⚠️  데이터 수집 실패 (공공데이터만 사용): {e}")
-                # 실패해도 공공데이터는 사용
+        print(f"📊 국토교통부 실거래가 데이터: {len(all_properties)}건")
 
         # 필터링
         filtered_properties = all_properties
@@ -103,7 +92,86 @@ async def get_properties(
         )
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"매물 조회 중 오류 발생: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"실거래가 조회 중 오류 발생: {str(e)}")
+
+
+@router.get("/listings", response_model=PropertyListResponse)
+async def get_current_listings(
+    page: int = Query(1, ge=1, description="페이지 번호"),
+    page_size: int = Query(50, ge=1, le=100, description="페이지 크기"),
+    property_type: Optional[PropertyType] = Query(None, description="매물 유형"),
+    min_area: Optional[float] = Query(None, ge=0, description="최소 면적(㎡)"),
+    max_area: Optional[float] = Query(None, ge=0, description="최대 면적(㎡)"),
+    min_price: Optional[int] = Query(None, ge=0, description="최소 가격(만원)"),
+    max_price: Optional[int] = Query(None, ge=0, description="최대 가격(만원)"),
+    apartment_name: Optional[str] = Query(None, description="아파트명")
+):
+    """
+    현재 매물 조회 (부동산114)
+
+    현재 판매 중인 매물 정보를 조회합니다.
+    학습/개인 프로젝트 용도로만 사용하세요.
+    """
+    try:
+        # 부동산114 현재 매물 데이터
+        all_properties = r114_crawler.crawl_current_listings(limit=200)
+
+        print(f"📊 부동산114 현재 매물: {len(all_properties)}건")
+
+        # 필터링
+        filtered_properties = all_properties
+
+        if property_type:
+            filtered_properties = [
+                p for p in filtered_properties
+                if p.property_type == property_type
+            ]
+
+        if min_area is not None:
+            filtered_properties = [
+                p for p in filtered_properties
+                if p.exclusive_area >= min_area
+            ]
+
+        if max_area is not None:
+            filtered_properties = [
+                p for p in filtered_properties
+                if p.exclusive_area <= max_area
+            ]
+
+        if min_price is not None:
+            filtered_properties = [
+                p for p in filtered_properties
+                if p.deal_amount >= min_price
+            ]
+
+        if max_price is not None:
+            filtered_properties = [
+                p for p in filtered_properties
+                if p.deal_amount <= max_price
+            ]
+
+        if apartment_name:
+            filtered_properties = [
+                p for p in filtered_properties
+                if apartment_name.lower() in p.apartment_name.lower()
+            ]
+
+        # 페이지네이션
+        total = len(filtered_properties)
+        start_idx = (page - 1) * page_size
+        end_idx = start_idx + page_size
+        paginated_properties = filtered_properties[start_idx:end_idx]
+
+        return PropertyListResponse(
+            total=total,
+            properties=paginated_properties,
+            page=page,
+            page_size=page_size
+        )
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"현재 매물 조회 중 오류 발생: {str(e)}")
 
 
 @router.get("/{property_id}", response_model=Property)
