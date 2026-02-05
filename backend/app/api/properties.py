@@ -7,6 +7,7 @@ from app.models.schemas import (
     PropertyType
 )
 from app.services.molit_api import molit_service
+from app.services.r114_crawler import r114_crawler
 from app.core.config import settings
 
 router = APIRouter()
@@ -22,18 +23,32 @@ async def get_properties(
     min_price: Optional[int] = Query(None, ge=0, description="최소 가격(만원)"),
     max_price: Optional[int] = Query(None, ge=0, description="최대 가격(만원)"),
     apartment_name: Optional[str] = Query(None, description="아파트명"),
-    months: int = Query(12, ge=1, le=24, description="조회 개월 수")
+    months: int = Query(12, ge=1, le=24, description="조회 개월 수"),
+    use_crawler: bool = Query(True, description="크롤링 데이터 포함 여부")
 ):
     """
     매물 목록 조회
 
     마포구의 부동산 실거래 매물 목록을 조회합니다.
+    공공데이터 API + 부동산114 크롤링 데이터 통합 제공
+
+    주의: 크롤링 데이터는 학습/개인 프로젝트 용도로만 사용하세요.
     """
     try:
-        # 전체 매물 조회
+        # 1. 공공데이터 API에서 실거래가 조회
         all_properties = await molit_service.fetch_all_properties(
             settings.MAPO_REGION_CODE, months
         )
+
+        # 2. 부동산114 크롤링 데이터 추가 (선택적)
+        if use_crawler:
+            try:
+                crawler_properties = r114_crawler.crawl_mapo_apartments(limit=30)
+                all_properties.extend(crawler_properties)
+                print(f"📊 데이터 통합: 공공데이터 + 크롤링 = 총 {len(all_properties)}건")
+            except Exception as e:
+                print(f"⚠️  크롤링 실패 (공공데이터만 사용): {e}")
+                # 크롤링 실패해도 공공데이터는 사용
 
         # 필터링
         filtered_properties = all_properties
