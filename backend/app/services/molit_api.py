@@ -46,6 +46,11 @@ class MolitAPIService:
 
     async def _fetch_data(self, endpoint: str, params: dict) -> dict:
         """API 데이터 요청"""
+        # API 키가 없거나 기본값인 경우 빈 결과 반환
+        if not self.api_key or self.api_key == "your_api_key_here":
+            print("⚠️  국토교통부 API 키가 설정되지 않았습니다. .env 파일에 MOLIT_API_KEY를 설정해주세요.")
+            return {"response": {"body": {"items": {"item": []}}}}
+
         params["serviceKey"] = self.api_key
 
         async with httpx.AsyncClient(timeout=30.0) as client:

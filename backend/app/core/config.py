@@ -1,9 +1,10 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing import List
 
 
 class Settings(BaseSettings):
     """애플리케이션 설정"""
+    model_config = SettingsConfigDict(env_file=".env", case_sensitive=True)
 
     # API 설정
     MOLIT_API_KEY: str = ""
@@ -14,14 +15,15 @@ class Settings(BaseSettings):
     CACHE_DIR: str = "app/data/cache"
 
     # CORS 설정
-    CORS_ORIGINS: List[str] = ["http://localhost:5173", "http://localhost:3000"]
+    CORS_ORIGINS: str = "http://localhost:5173,http://localhost:3000"
 
     # 마포구 지역코드
     MAPO_REGION_CODE: str = "11440"
 
-    class Config:
-        env_file = ".env"
-        case_sensitive = True
+    @property
+    def cors_origins_list(self) -> List[str]:
+        """CORS origins를 리스트로 반환"""
+        return [origin.strip() for origin in self.CORS_ORIGINS.split(",")]
 
 
 settings = Settings()
