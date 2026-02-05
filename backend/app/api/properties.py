@@ -40,15 +40,15 @@ async def get_properties(
             settings.MAPO_REGION_CODE, months
         )
 
-        # 2. 부동산114 크롤링 데이터 추가 (선택적)
+        # 2. 부동산 데이터 추가 (최근 1년치)
         if use_crawler:
             try:
-                crawler_properties = r114_crawler.crawl_mapo_apartments(limit=30)
+                crawler_properties = r114_crawler.crawl_mapo_apartments(limit=1200)
                 all_properties.extend(crawler_properties)
-                print(f"📊 데이터 통합: 공공데이터 + 크롤링 = 총 {len(all_properties)}건")
+                print(f"📊 데이터 통합: 공공데이터 {len(all_properties) - len(crawler_properties)}건 + 수집데이터 {len(crawler_properties)}건 = 총 {len(all_properties)}건")
             except Exception as e:
-                print(f"⚠️  크롤링 실패 (공공데이터만 사용): {e}")
-                # 크롤링 실패해도 공공데이터는 사용
+                print(f"⚠️  데이터 수집 실패 (공공데이터만 사용): {e}")
+                # 실패해도 공공데이터는 사용
 
         # 필터링
         filtered_properties = all_properties
