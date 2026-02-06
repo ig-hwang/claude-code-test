@@ -13,6 +13,12 @@ export const useTradeHistory = (filters = {}, autoFetch = true) => {
   });
 
   const fetchProperties = async (params = {}) => {
+    // 이미 로딩 중이면 중복 요청 방지
+    if (loading) {
+      console.log('⚠️  이미 요청 중입니다. 중복 요청 방지.');
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
@@ -42,6 +48,7 @@ export const useTradeHistory = (filters = {}, autoFetch = true) => {
         total: response.data.total,
       });
     } catch (err) {
+      console.error('❌ API 오류:', err);
       setError(err.response?.data?.detail || '실거래가 조회 중 오류가 발생했습니다.');
     } finally {
       setLoading(false);
@@ -52,7 +59,7 @@ export const useTradeHistory = (filters = {}, autoFetch = true) => {
     if (autoFetch) {
       fetchProperties();
     }
-  }, [JSON.stringify(filters)]);
+  }, [JSON.stringify(filters), autoFetch]);
 
   return {
     properties,
@@ -76,6 +83,12 @@ export const useCurrentListings = (filters = {}, autoFetch = true) => {
   });
 
   const fetchProperties = async (params = {}) => {
+    // 이미 로딩 중이면 중복 요청 방지
+    if (loading) {
+      console.log('⚠️  이미 요청 중입니다. 중복 요청 방지.');
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
@@ -94,6 +107,7 @@ export const useCurrentListings = (filters = {}, autoFetch = true) => {
         total: response.data.total,
       });
     } catch (err) {
+      console.error('❌ API 오류:', err);
       setError(err.response?.data?.detail || '현재 매물 조회 중 오류가 발생했습니다.');
     } finally {
       setLoading(false);
@@ -104,7 +118,7 @@ export const useCurrentListings = (filters = {}, autoFetch = true) => {
     if (autoFetch) {
       fetchProperties();
     }
-  }, [JSON.stringify(filters)]);
+  }, [JSON.stringify(filters), autoFetch]);
 
   return {
     properties,

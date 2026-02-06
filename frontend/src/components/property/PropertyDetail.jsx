@@ -171,6 +171,95 @@ const PropertyDetail = ({ property, onClose }) => {
                   )}
                 </div>
               </div>
+
+              {/* 건축 정보 */}
+              {(property.floor_area_ratio || property.building_coverage_ratio || property.land_share) && (
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">건축 정보</h3>
+                  <div className="grid grid-cols-2 gap-4 mb-4">
+                    {property.floor_area_ratio && (
+                      <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="text-sm text-gray-600">용적률</div>
+                          <div className="text-xs text-gray-500">건축 효율성</div>
+                        </div>
+                        <div className="text-2xl font-bold text-green-700">
+                          {property.floor_area_ratio.toFixed(1)}%
+                        </div>
+                        <div className="text-xs text-gray-600 mt-1">
+                          {property.floor_area_ratio > 300 ? '초고층' : property.floor_area_ratio > 200 ? '고층' : '중저층'}
+                        </div>
+                      </div>
+                    )}
+                    {property.building_coverage_ratio && (
+                      <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="text-sm text-gray-600">건폐율</div>
+                          <div className="text-xs text-gray-500">토지 이용률</div>
+                        </div>
+                        <div className="text-2xl font-bold text-green-700">
+                          {property.building_coverage_ratio.toFixed(1)}%
+                        </div>
+                        <div className="text-xs text-gray-600 mt-1">
+                          {property.building_coverage_ratio < 20 ? '쾌적함' : property.building_coverage_ratio < 30 ? '보통' : '밀집'}
+                        </div>
+                      </div>
+                    )}
+                    {property.land_share && (
+                      <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="text-sm text-gray-600">대지지분</div>
+                          <div className="text-xs text-gray-500">토지 소유권</div>
+                        </div>
+                        <div className="text-2xl font-bold text-purple-700">
+                          {property.land_share.toFixed(1)}㎡
+                        </div>
+                        <div className="text-xs text-gray-600 mt-1">
+                          약 {(property.land_share / 3.3).toFixed(1)}평
+                        </div>
+                      </div>
+                    )}
+                    {property.total_households && (
+                      <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="text-sm text-gray-600">총 세대수</div>
+                          <div className="text-xs text-gray-500">단지 규모</div>
+                        </div>
+                        <div className="text-2xl font-bold text-blue-700">
+                          {property.total_households.toLocaleString()}
+                        </div>
+                        <div className="text-xs text-gray-600 mt-1">
+                          {property.total_households > 1000 ? '대단지' : property.total_households > 500 ? '중형단지' : '소형단지'}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 주차 및 편의시설 */}
+                  {property.total_parking && property.total_households && (
+                    <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <div className="text-sm text-gray-600 mb-1">주차대수</div>
+                          <div className="text-xl font-bold text-gray-900">
+                            {property.total_parking.toLocaleString()}대
+                          </div>
+                        </div>
+                        <div>
+                          <div className="text-sm text-gray-600 mb-1">세대당 주차</div>
+                          <div className="text-xl font-bold text-gray-900">
+                            {(property.total_parking / property.total_households).toFixed(2)}대
+                          </div>
+                          <div className="text-xs text-gray-500 mt-1">
+                            {(property.total_parking / property.total_households) >= 1.5 ? '여유로움' :
+                             (property.total_parking / property.total_households) >= 1.0 ? '보통' : '부족'}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           )}
 

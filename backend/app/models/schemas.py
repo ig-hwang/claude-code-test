@@ -28,6 +28,13 @@ class Property(BaseModel):
     road_name: Optional[str] = None  # 도로명
     deal_date: Optional[str] = None  # 거래일자 (YYYY-MM-DD)
 
+    # 건축물 상세 정보
+    floor_area_ratio: Optional[float] = None  # 용적률(%)
+    building_coverage_ratio: Optional[float] = None  # 건폐율(%)
+    land_share: Optional[float] = None  # 대지지분(㎡)
+    total_households: Optional[int] = None  # 총 세대수
+    total_parking: Optional[int] = None  # 총 주차대수
+
     class Config:
         use_enum_values = True
 

@@ -1,27 +1,30 @@
 import React, { useState } from 'react';
-import { BarChart3, List, ShoppingCart } from 'lucide-react';
+import { BarChart3, List, ShoppingCart, HelpCircle } from 'lucide-react';
 import Header from './components/layout/Header';
 import Sidebar from './components/layout/Sidebar';
 import PropertyList from './components/property/PropertyList';
 import Dashboard from './components/analysis/Dashboard';
+import GuideModal from './components/common/GuideModal';
 import { useTradeHistory, useCurrentListings } from './hooks/useProperties';
 
 function App() {
   const [activeTab, setActiveTab] = useState('dashboard'); // 'dashboard', 'trades', 'listings'
+  const [showGuide, setShowGuide] = useState(false);
   const [filters, setFilters] = useState({
     property_type: null,
     min_area: null,
     max_area: null,
     min_price: null,
     max_price: null,
+    months: 24, // 기본 24개월
   });
 
-  // 대시보드용 전체 데이터 (6832건)
+  // 대시보드용 전체 데이터
   const {
     properties: dashboardData,
     loading: dashboardLoading,
     error: dashboardError,
-  } = useTradeHistory({ months: 24, page_size: 10000 });
+  } = useTradeHistory({ months: filters.months, page_size: 10000 }, activeTab === 'dashboard');
 
   // 실거래가 내역용 페이지별 데이터 (50건씩)
   const {
@@ -30,7 +33,7 @@ function App() {
     error: tradesError,
     pagination: tradesPagination,
     fetchProperties: fetchTrades
-  } = useTradeHistory({ ...filters, months: 24 });
+  } = useTradeHistory({ ...filters }, activeTab === 'trades');
 
   // 현재 매물 데이터 (부동산114)
   const {
@@ -55,6 +58,7 @@ function App() {
       max_area: null,
       min_price: null,
       max_price: null,
+      months: 24,
     });
   };
 
@@ -62,11 +66,24 @@ function App() {
     <div className="min-h-screen bg-gray-50">
       <Header />
 
+      {/* 도움말 버튼 (고정) */}
+      <button
+        onClick={() => setShowGuide(true)}
+        className="fixed bottom-6 right-6 bg-blue-600 text-white rounded-full p-4 shadow-lg hover:bg-blue-700 transition-all hover:scale-110 z-40"
+        title="사용 가이드"
+      >
+        <HelpCircle className="w-6 h-6" />
+      </button>
+
+      {/* 가이드 모달 */}
+      <GuideModal isOpen={showGuide} onClose={() => setShowGuide(false)} />
+
       <div className="flex">
         <Sidebar
           filters={filters}
           onFilterChange={handleFilterChange}
           onReset={handleResetFilters}
+          loading={dashboardLoading || tradesLoading || listingsLoading}
         />
 
         <main className="flex-1 p-6">

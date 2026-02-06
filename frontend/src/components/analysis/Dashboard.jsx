@@ -141,6 +141,22 @@ const Dashboard = ({ properties, loading, error }) => {
 
   return (
     <div className="space-y-6">
+      {/* 데이터 요약 */}
+      <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 border border-blue-200">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-1">마포구 아파트 시세 분석</h3>
+            <p className="text-sm text-gray-600">
+              최근 24개월 실거래 데이터 기반 ({properties.length.toLocaleString()}건 분석)
+            </p>
+          </div>
+          <div className="text-right">
+            <div className="text-xs text-gray-500">데이터 출처</div>
+            <div className="text-sm font-medium text-gray-700">국토교통부 실거래가 공개시스템</div>
+          </div>
+        </div>
+      </div>
+
       {/* 통계 카드 */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="bg-white rounded-lg shadow p-6">
@@ -150,6 +166,9 @@ const Dashboard = ({ properties, loading, error }) => {
           </div>
           <div className="text-2xl font-bold text-gray-900">
             {formatPrice(Math.round(stats.avgPrice))}
+          </div>
+          <div className="text-xs text-gray-500 mt-1">
+            평당 평균 {Math.round(stats.avgPrice / (85 / 3.3)).toLocaleString()}만원
           </div>
         </div>
 
@@ -167,6 +186,9 @@ const Dashboard = ({ properties, loading, error }) => {
           <div className={`text-2xl font-bold ${getChangeRateColor(stats.changeRate)}`}>
             {formatChangeRate(stats.changeRate)}
           </div>
+          <div className="text-xs text-gray-500 mt-1">
+            {stats.trend === 'up' ? '상승 추세' : stats.trend === 'down' ? '하락 추세' : '보합세'}
+          </div>
         </div>
 
         <div className="bg-white rounded-lg shadow p-6">
@@ -177,6 +199,9 @@ const Dashboard = ({ properties, loading, error }) => {
           <div className="text-2xl font-bold text-gray-900">
             {stats.totalCount.toLocaleString()}건
           </div>
+          <div className="text-xs text-gray-500 mt-1">
+            월평균 {Math.round(stats.totalCount / 24).toLocaleString()}건
+          </div>
         </div>
       </div>
 
@@ -186,10 +211,19 @@ const Dashboard = ({ properties, loading, error }) => {
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={monthlyData}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
-            <YAxis />
+            <XAxis
+              dataKey="date"
+              tick={{ fontSize: 12 }}
+              angle={-45}
+              textAnchor="end"
+              height={80}
+            />
+            <YAxis
+              tickFormatter={(value) => `${(value / 10000).toFixed(0)}억`}
+              tick={{ fontSize: 12 }}
+            />
             <Tooltip
-              formatter={(value) => `${value.toLocaleString()}만원`}
+              formatter={(value) => `${value.toLocaleString()}만원 (${(value / 10000).toFixed(1)}억)`}
               labelStyle={{ color: '#000' }}
             />
             <Legend />
@@ -199,6 +233,7 @@ const Dashboard = ({ properties, loading, error }) => {
               stroke="#3B82F6"
               strokeWidth={3}
               dot={{ r: 5 }}
+              name="평균 가격"
             />
             <Line
               type="monotone"
@@ -206,6 +241,7 @@ const Dashboard = ({ properties, loading, error }) => {
               stroke="#EF4444"
               strokeWidth={1}
               strokeDasharray="5 5"
+              name="최고 가격"
             />
             <Line
               type="monotone"
@@ -213,6 +249,7 @@ const Dashboard = ({ properties, loading, error }) => {
               stroke="#10B981"
               strokeWidth={1}
               strokeDasharray="5 5"
+              name="최저 가격"
             />
           </LineChart>
         </ResponsiveContainer>
@@ -224,13 +261,19 @@ const Dashboard = ({ properties, loading, error }) => {
         <ResponsiveContainer width="100%" height={250}>
           <BarChart data={monthlyData}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
-            <YAxis />
+            <XAxis
+              dataKey="date"
+              tick={{ fontSize: 12 }}
+              angle={-45}
+              textAnchor="end"
+              height={80}
+            />
+            <YAxis tick={{ fontSize: 12 }} />
             <Tooltip
               formatter={(value) => `${value}건`}
               labelStyle={{ color: '#000' }}
             />
-            <Bar dataKey="거래량" fill="#8B5CF6" />
+            <Bar dataKey="거래량" fill="#8B5CF6" name="거래 건수" />
           </BarChart>
         </ResponsiveContainer>
       </div>

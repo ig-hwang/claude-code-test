@@ -79,10 +79,22 @@ class R114Crawler:
             area = random.uniform(40, 180)
 
             # 호가: 실거래가보다 5-15% 높게 설정
-            # 평당 약 4200-8500만원
+            # 평당 가격을 면적별로 차등 적용 (작은 평형이 평당가 높음)
             pyeong = area / 3.3
-            asking_price_per_pyeong = random.uniform(4200, 8500)
-            asking_price = int(pyeong * asking_price_per_pyeong)
+
+            # 평형대별 평당가 설정 (만원)
+            if pyeong < 20:  # 20평 미만
+                asking_price_per_pyeong = random.uniform(6500, 8500)
+            elif pyeong < 30:  # 20-30평
+                asking_price_per_pyeong = random.uniform(5500, 7500)
+            elif pyeong < 40:  # 30-40평
+                asking_price_per_pyeong = random.uniform(4800, 6800)
+            else:  # 40평 이상
+                asking_price_per_pyeong = random.uniform(4200, 6200)
+
+            # 호가는 실거래가보다 5-10% 높게
+            markup = random.uniform(1.05, 1.10)
+            asking_price = int(pyeong * asking_price_per_pyeong * markup)
 
             # 등록일: 최근 1개월 이내
             days_ago = random.randint(0, 30)

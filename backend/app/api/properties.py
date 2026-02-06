@@ -8,6 +8,7 @@ from app.models.schemas import (
 )
 from app.services.molit_api_xml import molit_service_xml as molit_service
 from app.services.r114_crawler import r114_crawler
+from app.services.building_info_service import building_info_service
 from app.core.config import settings
 
 router = APIRouter()
@@ -23,6 +24,7 @@ async def get_trade_history(
     min_price: Optional[int] = Query(None, ge=0, description="최소 가격(만원)"),
     max_price: Optional[int] = Query(None, ge=0, description="최대 가격(만원)"),
     apartment_name: Optional[str] = Query(None, description="아파트명"),
+    dongs: Optional[List[str]] = Query(None, description="동 목록 (중복 선택 가능)"),
     months: int = Query(12, ge=1, le=24, description="조회 개월 수")
 ):
     """
@@ -78,15 +80,27 @@ async def get_trade_history(
                 if apartment_name.lower() in p.apartment_name.lower()
             ]
 
+        if dongs:
+            filtered_properties = [
+                p for p in filtered_properties
+                if p.dong in dongs
+            ]
+
         # 페이지네이션
         total = len(filtered_properties)
         start_idx = (page - 1) * page_size
         end_idx = start_idx + page_size
         paginated_properties = filtered_properties[start_idx:end_idx]
 
+        # 건축 정보 추가 (용적률, 건폐율, 대지지분)
+        enriched_properties = [
+            building_info_service.enrich_property(prop)
+            for prop in paginated_properties
+        ]
+
         return PropertyListResponse(
             total=total,
-            properties=paginated_properties,
+            properties=enriched_properties,
             page=page,
             page_size=page_size
         )
@@ -104,7 +118,8 @@ async def get_current_listings(
     max_area: Optional[float] = Query(None, ge=0, description="최대 면적(㎡)"),
     min_price: Optional[int] = Query(None, ge=0, description="최소 가격(만원)"),
     max_price: Optional[int] = Query(None, ge=0, description="최대 가격(만원)"),
-    apartment_name: Optional[str] = Query(None, description="아파트명")
+    apartment_name: Optional[str] = Query(None, description="아파트명"),
+    dongs: Optional[List[str]] = Query(None, description="동 목록 (중복 선택 가능)")
 ):
     """
     현재 매물 조회 (부동산114)
@@ -157,15 +172,27 @@ async def get_current_listings(
                 if apartment_name.lower() in p.apartment_name.lower()
             ]
 
+        if dongs:
+            filtered_properties = [
+                p for p in filtered_properties
+                if p.dong in dongs
+            ]
+
         # 페이지네이션
         total = len(filtered_properties)
         start_idx = (page - 1) * page_size
         end_idx = start_idx + page_size
         paginated_properties = filtered_properties[start_idx:end_idx]
 
+        # 건축 정보 추가 (용적률, 건폐율, 대지지분)
+        enriched_properties = [
+            building_info_service.enrich_property(prop)
+            for prop in paginated_properties
+        ]
+
         return PropertyListResponse(
             total=total,
-            properties=paginated_properties,
+            properties=enriched_properties,
             page=page,
             page_size=page_size
         )

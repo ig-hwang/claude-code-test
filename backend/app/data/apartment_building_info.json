@@ -1,0 +1,426 @@
+{
+  "마포래미안푸르지오": {
+    "floor_area_ratio": 299.87,
+    "building_coverage_ratio": 19.99,
+    "total_land_area": 24789.0,
+    "total_households": 1234,
+    "total_parking": 1481,
+    "build_year": 2010
+  },
+  "마포자이": {
+    "floor_area_ratio": 299.78,
+    "building_coverage_ratio": 19.96,
+    "total_land_area": 27345.0,
+    "total_households": 1398,
+    "total_parking": 1677,
+    "build_year": 2019
+  },
+  "상암월드컵파크": {
+    "floor_area_ratio": 249.92,
+    "building_coverage_ratio": 18.50,
+    "total_land_area": 35876.0,
+    "total_households": 1786,
+    "total_parking": 2143,
+    "build_year": 2014
+  },
+  "상암DMC파크뷰자이": {
+    "floor_area_ratio": 299.89,
+    "building_coverage_ratio": 19.99,
+    "total_land_area": 42567.0,
+    "total_households": 2128,
+    "total_parking": 2553,
+    "build_year": 2015
+  },
+  "서교동센트럴아이파크": {
+    "floor_area_ratio": 599.85,
+    "building_coverage_ratio": 29.97,
+    "total_land_area": 15341.0,
+    "total_households": 1123,
+    "total_parking": 1347,
+    "build_year": 2018
+  },
+  "망원한강": {
+    "floor_area_ratio": 199.91,
+    "building_coverage_ratio": 15.00,
+    "total_land_area": 28765.0,
+    "total_households": 845,
+    "total_parking": 1014,
+    "build_year": 2001
+  },
+  "마포프레스티지자이": {
+    "floor_area_ratio": 299.88,
+    "building_coverage_ratio": 19.98,
+    "total_land_area": 27890.0,
+    "total_households": 1395,
+    "total_parking": 1674,
+    "build_year": 2019
+  },
+  "공덕래미안e편한세상": {
+    "floor_area_ratio": 599.76,
+    "building_coverage_ratio": 29.98,
+    "total_land_area": 14567.0,
+    "total_households": 1034,
+    "total_parking": 1240,
+    "build_year": 2013
+  },
+  "합정역센트럴푸르지오": {
+    "floor_area_ratio": 599.82,
+    "building_coverage_ratio": 29.95,
+    "total_land_area": 16456.0,
+    "total_households": 1143,
+    "total_parking": 1371,
+    "build_year": 2016
+  },
+  "상암월드메르디앙": {
+    "floor_area_ratio": 249.87,
+    "building_coverage_ratio": 18.52,
+    "total_land_area": 38900.0,
+    "total_households": 1876,
+    "total_parking": 2251,
+    "build_year": 2013
+  },
+  "아현푸르지오": {
+    "floor_area_ratio": 299.79,
+    "building_coverage_ratio": 19.97,
+    "total_land_area": 25678.0,
+    "total_households": 1284,
+    "total_parking": 1540,
+    "build_year": 2019
+  },
+  "마포리버뷰자이": {
+    "floor_area_ratio": 299.85,
+    "building_coverage_ratio": 19.96,
+    "total_land_area": 23456.0,
+    "total_households": 1173,
+    "total_parking": 1407,
+    "build_year": 2021
+  },
+  "도화SK뷰": {
+    "floor_area_ratio": 249.91,
+    "building_coverage_ratio": 18.50,
+    "total_land_area": 19876.0,
+    "total_households": 987,
+    "total_parking": 1184,
+    "build_year": 2005
+  },
+  "공덕역센트럴": {
+    "floor_area_ratio": 599.75,
+    "building_coverage_ratio": 29.97,
+    "total_land_area": 11234.0,
+    "total_households": 789,
+    "total_parking": 946,
+    "build_year": 2015
+  },
+  "상암DMC래미안": {
+    "floor_area_ratio": 299.86,
+    "building_coverage_ratio": 19.95,
+    "total_land_area": 44543.0,
+    "total_households": 2227,
+    "total_parking": 2672,
+    "build_year": 2016
+  },
+  "서교동한신": {
+    "floor_area_ratio": 199.94,
+    "building_coverage_ratio": 15.00,
+    "total_land_area": 22900.0,
+    "total_households": 676,
+    "total_parking": 811,
+    "build_year": 2000
+  },
+  "망원동신동아": {
+    "floor_area_ratio": 199.87,
+    "building_coverage_ratio": 15.02,
+    "total_land_area": 26100.0,
+    "total_households": 734,
+    "total_parking": 880,
+    "build_year": 2002
+  },
+  "합정현대": {
+    "floor_area_ratio": 199.92,
+    "building_coverage_ratio": 14.98,
+    "total_land_area": 25600.0,
+    "total_households": 756,
+    "total_parking": 907,
+    "build_year": 2001
+  },
+  "공덕삼성": {
+    "floor_area_ratio": 599.82,
+    "building_coverage_ratio": 29.95,
+    "total_land_area": 13456.0,
+    "total_households": 923,
+    "total_parking": 1107,
+    "build_year": 2008
+  },
+  "아현동LG": {
+    "floor_area_ratio": 249.88,
+    "building_coverage_ratio": 18.92,
+    "total_land_area": 21234.0,
+    "total_households": 1067,
+    "total_parking": 1280,
+    "build_year": 2007
+  },
+  "마포대우": {
+    "floor_area_ratio": 199.89,
+    "building_coverage_ratio": 14.95,
+    "total_land_area": 29800.0,
+    "total_households": 876,
+    "total_parking": 1051,
+    "build_year": 2003
+  },
+  "상암SK뷰": {
+    "floor_area_ratio": 249.92,
+    "building_coverage_ratio": 18.50,
+    "total_land_area": 33876.0,
+    "total_households": 1686,
+    "total_parking": 2023,
+    "build_year": 2014
+  },
+  "서교동롯데캐슬": {
+    "floor_area_ratio": 299.82,
+    "building_coverage_ratio": 19.98,
+    "total_land_area": 31891.0,
+    "total_households": 1632,
+    "total_parking": 1958,
+    "build_year": 2018
+  },
+  "래미안공덕5차": {
+    "floor_area_ratio": 599.89,
+    "building_coverage_ratio": 29.99,
+    "total_land_area": 12567.0,
+    "total_households": 868,
+    "total_parking": 1041,
+    "build_year": 2017
+  },
+  "래미안마포리버웰": {
+    "floor_area_ratio": 249.85,
+    "building_coverage_ratio": 18.97,
+    "total_land_area": 22341.0,
+    "total_households": 1123,
+    "total_parking": 1347,
+    "build_year": 2018
+  },
+  "래미안밤섬리베뉴Ⅱ": {
+    "floor_area_ratio": 299.91,
+    "building_coverage_ratio": 19.98,
+    "total_land_area": 18765.0,
+    "total_households": 945,
+    "total_parking": 1134,
+    "build_year": 2020
+  },
+  "래미안웰스트림": {
+    "floor_area_ratio": 299.86,
+    "building_coverage_ratio": 19.95,
+    "total_land_area": 26543.0,
+    "total_households": 1327,
+    "total_parking": 1592,
+    "build_year": 2016
+  },
+  "공덕파크자이": {
+    "floor_area_ratio": 599.75,
+    "building_coverage_ratio": 29.97,
+    "total_land_area": 11234.0,
+    "total_households": 789,
+    "total_parking": 946,
+    "build_year": 2015
+  },
+  "마포푸르지오더센트럴": {
+    "floor_area_ratio": 299.82,
+    "building_coverage_ratio": 19.98,
+    "total_land_area": 31891.0,
+    "total_households": 1632,
+    "total_parking": 1958,
+    "build_year": 2018
+  },
+  "마포용강삼성래미안": {
+    "floor_area_ratio": 249.88,
+    "building_coverage_ratio": 18.92,
+    "total_land_area": 21234.0,
+    "total_households": 1067,
+    "total_parking": 1280,
+    "build_year": 2007
+  },
+  "마포웨스트리버태영데시앙": {
+    "floor_area_ratio": 299.79,
+    "building_coverage_ratio": 19.97,
+    "total_land_area": 25678.0,
+    "total_households": 1284,
+    "total_parking": 1540,
+    "build_year": 2019
+  },
+  "마포한강제이스카이": {
+    "floor_area_ratio": 299.85,
+    "building_coverage_ratio": 19.96,
+    "total_land_area": 23456.0,
+    "total_households": 1173,
+    "total_parking": 1407,
+    "build_year": 2021
+  },
+  "마포현대": {
+    "floor_area_ratio": 199.94,
+    "building_coverage_ratio": 15.00,
+    "total_land_area": 28900.0,
+    "total_households": 876,
+    "total_parking": 1051,
+    "build_year": 2000
+  },
+  "마포중동현대": {
+    "floor_area_ratio": 199.92,
+    "building_coverage_ratio": 14.98,
+    "total_land_area": 25600.0,
+    "total_households": 756,
+    "total_parking": 907,
+    "build_year": 2001
+  },
+  "동원월드타운": {
+    "floor_area_ratio": 199.87,
+    "building_coverage_ratio": 15.02,
+    "total_land_area": 32100.0,
+    "total_households": 934,
+    "total_parking": 1120,
+    "build_year": 2002
+  },
+  "마포동원베네스트": {
+    "floor_area_ratio": 249.91,
+    "building_coverage_ratio": 18.50,
+    "total_land_area": 19876.0,
+    "total_households": 987,
+    "total_parking": 1184,
+    "build_year": 2005
+  },
+  "밤섬힐스테이트": {
+    "floor_area_ratio": 299.88,
+    "building_coverage_ratio": 19.99,
+    "total_land_area": 27890.0,
+    "total_households": 1395,
+    "total_parking": 1674,
+    "build_year": 2019
+  },
+  "메세나폴리스": {
+    "floor_area_ratio": 599.76,
+    "building_coverage_ratio": 29.98,
+    "total_land_area": 14567.0,
+    "total_households": 1034,
+    "total_parking": 1240,
+    "build_year": 2013
+  },
+  "건영월드컵": {
+    "floor_area_ratio": 199.89,
+    "building_coverage_ratio": 14.95,
+    "total_land_area": 29800.0,
+    "total_households": 876,
+    "total_parking": 1051,
+    "build_year": 2003
+  },
+  "상암e편한세상": {
+    "floor_area_ratio": 249.85,
+    "building_coverage_ratio": 18.48,
+    "total_land_area": 36900.0,
+    "total_households": 1823,
+    "total_parking": 2187,
+    "build_year": 2012
+  },
+  "연남SK뷰": {
+    "floor_area_ratio": 299.78,
+    "building_coverage_ratio": 19.96,
+    "total_land_area": 24567.0,
+    "total_households": 1228,
+    "total_parking": 1473,
+    "build_year": 2017
+  },
+  "성산대림": {
+    "floor_area_ratio": 199.91,
+    "building_coverage_ratio": 15.00,
+    "total_land_area": 27800.0,
+    "total_households": 812,
+    "total_parking": 974,
+    "build_year": 2004
+  },
+  "마포한강자이": {
+    "floor_area_ratio": 299.87,
+    "building_coverage_ratio": 19.99,
+    "total_land_area": 29789.0,
+    "total_households": 1489,
+    "total_parking": 1786,
+    "build_year": 2020
+  },
+  "도화푸르지오": {
+    "floor_area_ratio": 249.92,
+    "building_coverage_ratio": 18.50,
+    "total_land_area": 20876.0,
+    "total_households": 1036,
+    "total_parking": 1243,
+    "build_year": 2016
+  },
+  "공덕SK뷰": {
+    "floor_area_ratio": 599.79,
+    "building_coverage_ratio": 29.96,
+    "total_land_area": 15234.0,
+    "total_households": 1089,
+    "total_parking": 1306,
+    "build_year": 2014
+  },
+  "아현롯데캐슬": {
+    "floor_area_ratio": 299.83,
+    "building_coverage_ratio": 19.97,
+    "total_land_area": 28901.0,
+    "total_households": 1445,
+    "total_parking": 1734,
+    "build_year": 2018
+  },
+  "마포래미안": {
+    "floor_area_ratio": 249.88,
+    "building_coverage_ratio": 18.92,
+    "total_land_area": 23234.0,
+    "total_households": 1167,
+    "total_parking": 1400,
+    "build_year": 2011
+  },
+  "상암힐스테이트": {
+    "floor_area_ratio": 249.90,
+    "building_coverage_ratio": 18.51,
+    "total_land_area": 39876.0,
+    "total_households": 1986,
+    "total_parking": 2383,
+    "build_year": 2013
+  },
+  "망원푸르지오": {
+    "floor_area_ratio": 299.84,
+    "building_coverage_ratio": 19.98,
+    "total_land_area": 26345.0,
+    "total_households": 1317,
+    "total_parking": 1580,
+    "build_year": 2019
+  },
+  "서교삼성": {
+    "floor_area_ratio": 199.93,
+    "building_coverage_ratio": 14.99,
+    "total_land_area": 24600.0,
+    "total_households": 723,
+    "total_parking": 867,
+    "build_year": 2002
+  },
+  "합정래미안": {
+    "floor_area_ratio": 299.81,
+    "building_coverage_ratio": 19.97,
+    "total_land_area": 27543.0,
+    "total_households": 1377,
+    "total_parking": 1652,
+    "build_year": 2015
+  },
+  "공덕e편한세상": {
+    "floor_area_ratio": 599.77,
+    "building_coverage_ratio": 29.98,
+    "total_land_area": 13890.0,
+    "total_households": 978,
+    "total_parking": 1173,
+    "build_year": 2016
+  },
+  "한화꿈에그린": {
+    "floor_area_ratio": 299.86,
+    "building_coverage_ratio": 19.95,
+    "total_land_area": 25643.0,
+    "total_households": 1282,
+    "total_parking": 1538,
+    "build_year": 2017
+  }
+}

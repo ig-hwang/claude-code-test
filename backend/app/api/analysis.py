@@ -5,7 +5,7 @@ from app.models.schemas import (
     MarketComparison,
     LocationAnalysis
 )
-from app.services.molit_api import molit_service
+from app.services.molit_api_xml import molit_service_xml as molit_service
 from app.services.price_analyzer import price_analyzer
 from app.services.market_analyzer import market_analyzer
 from app.services.location_analyzer import location_analyzer

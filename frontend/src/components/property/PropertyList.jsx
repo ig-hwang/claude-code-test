@@ -39,6 +39,12 @@ const PropertyList = ({
 
   const totalPages = Math.ceil(pagination.total / pagination.pageSize);
 
+  // 현재 페이지 통계 계산
+  const avgPrice = properties.reduce((sum, p) => sum + p.deal_amount, 0) / properties.length;
+  const avgArea = properties.reduce((sum, p) => sum + p.exclusive_area, 0) / properties.length;
+  const avgPricePerPyeong = avgPrice / (avgArea / 3.3);
+  const propertiesWithBuildingInfo = properties.filter(p => p.floor_area_ratio || p.building_coverage_ratio || p.land_share).length;
+
   return (
     <div className="flex-1">
       {/* 헤더 */}
@@ -72,6 +78,34 @@ const PropertyList = ({
           >
             <ListIcon className="w-5 h-5" />
           </button>
+        </div>
+      </div>
+
+      {/* 통계 요약 */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div className="bg-blue-50 rounded-lg p-3 border border-blue-200">
+          <div className="text-xs text-gray-600 mb-1">평균 거래가</div>
+          <div className="text-lg font-bold text-blue-700">
+            {Math.round(avgPrice / 10000)}억
+          </div>
+        </div>
+        <div className="bg-green-50 rounded-lg p-3 border border-green-200">
+          <div className="text-xs text-gray-600 mb-1">평균 평당가</div>
+          <div className="text-lg font-bold text-green-700">
+            {Math.round(avgPricePerPyeong).toLocaleString()}만
+          </div>
+        </div>
+        <div className="bg-purple-50 rounded-lg p-3 border border-purple-200">
+          <div className="text-xs text-gray-600 mb-1">평균 면적</div>
+          <div className="text-lg font-bold text-purple-700">
+            {(avgArea / 3.3).toFixed(1)}평
+          </div>
+        </div>
+        <div className="bg-orange-50 rounded-lg p-3 border border-orange-200">
+          <div className="text-xs text-gray-600 mb-1">상세정보 보유</div>
+          <div className="text-lg font-bold text-orange-700">
+            {propertiesWithBuildingInfo}/{properties.length}건
+          </div>
         </div>
       </div>
 
