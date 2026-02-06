@@ -21,7 +21,7 @@ function App() {
     properties: dashboardData,
     loading: dashboardLoading,
     error: dashboardError,
-  } = useTradeHistory({ months: 24, page_size: 10000 }, activeTab === 'dashboard');
+  } = useTradeHistory({ months: 24, page_size: 10000 });
 
   // 실거래가 내역용 페이지별 데이터 (50건씩)
   const {
@@ -30,7 +30,7 @@ function App() {
     error: tradesError,
     pagination: tradesPagination,
     fetchProperties: fetchTrades
-  } = useTradeHistory({ ...filters, months: 24 }, activeTab === 'trades');
+  } = useTradeHistory({ ...filters, months: 24 });
 
   // 현재 매물 데이터 (부동산114)
   const {
