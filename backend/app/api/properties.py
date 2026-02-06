@@ -16,7 +16,7 @@ router = APIRouter()
 @router.get("/trades", response_model=PropertyListResponse)
 async def get_trade_history(
     page: int = Query(1, ge=1, description="페이지 번호"),
-    page_size: int = Query(50, ge=1, le=100, description="페이지 크기"),
+    page_size: int = Query(50, ge=1, le=10000, description="페이지 크기"),
     property_type: Optional[PropertyType] = Query(None, description="매물 유형"),
     min_area: Optional[float] = Query(None, ge=0, description="최소 면적(㎡)"),
     max_area: Optional[float] = Query(None, ge=0, description="최대 면적(㎡)"),

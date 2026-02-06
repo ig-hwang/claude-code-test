@@ -23,7 +23,7 @@ function App() {
     error: tradesError,
     pagination: tradesPagination,
     fetchProperties: fetchTrades
-  } = useTradeHistory(filters);
+  } = useTradeHistory({ ...filters, months: 24, page_size: 10000 });
 
   // 현재 매물 데이터 (부동산114)
   const {
