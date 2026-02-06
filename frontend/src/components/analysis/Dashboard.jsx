@@ -14,7 +14,7 @@ import {
 import { TrendingUp, TrendingDown, DollarSign, Home } from 'lucide-react';
 import { formatPrice, formatChangeRate, getChangeRateColor } from '../../utils/formatters';
 
-const Dashboard = ({ properties }) => {
+const Dashboard = ({ properties, loading, error }) => {
   const [monthlyData, setMonthlyData] = useState([]);
   const [stats, setStats] = useState({
     avgPrice: 0,
@@ -29,6 +29,36 @@ const Dashboard = ({ properties }) => {
       calculateStats();
     }
   }, [properties]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">데이터를 불러오는 중...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center text-red-600">
+          <p className="text-lg font-semibold mb-2">오류 발생</p>
+          <p>{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!properties || properties.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-gray-500">표시할 데이터가 없습니다.</p>
+      </div>
+    );
+  }
 
   const calculateMonthlyTrend = () => {
     // 월별 데이터 집계

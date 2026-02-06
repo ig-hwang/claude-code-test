@@ -16,14 +16,21 @@ function App() {
     max_price: null,
   });
 
-  // 실거래가 데이터 (시세 분석용)
+  // 대시보드용 전체 데이터 (6832건)
+  const {
+    properties: dashboardData,
+    loading: dashboardLoading,
+    error: dashboardError,
+  } = useTradeHistory({ months: 24, page_size: 10000 }, activeTab === 'dashboard');
+
+  // 실거래가 내역용 페이지별 데이터 (50건씩)
   const {
     properties: tradeHistory,
     loading: tradesLoading,
     error: tradesError,
     pagination: tradesPagination,
     fetchProperties: fetchTrades
-  } = useTradeHistory({ ...filters, months: 24, page_size: 10000 });
+  } = useTradeHistory({ ...filters, months: 24 }, activeTab === 'trades');
 
   // 현재 매물 데이터 (부동산114)
   const {
@@ -102,7 +109,7 @@ function App() {
 
           {/* 콘텐츠 */}
           {activeTab === 'dashboard' ? (
-            <Dashboard properties={tradeHistory} />
+            <Dashboard properties={dashboardData} loading={dashboardLoading} error={dashboardError} />
           ) : activeTab === 'trades' ? (
             <PropertyList
               properties={tradeHistory}
