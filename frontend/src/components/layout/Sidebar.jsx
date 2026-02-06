@@ -16,7 +16,10 @@ const Sidebar = ({ filters, onFilterChange, onReset }) => {
     { label: '5억 이하', min: 0, max: 50000 },
     { label: '5-10억', min: 50000, max: 100000 },
     { label: '10-15억', min: 100000, max: 150000 },
-    { label: '15억 이상', min: 150000, max: 999999 },
+    { label: '15-20억', min: 150000, max: 200000 },
+    { label: '20-22억', min: 200000, max: 220000 },
+    { label: '22-25억', min: 220000, max: 250000 },
+    { label: '25억 이상', min: 250000, max: 999999 },
   ];
 
   const propertyTypes = [
