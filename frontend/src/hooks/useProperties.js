@@ -17,11 +17,22 @@ export const useTradeHistory = (filters = {}, autoFetch = true) => {
     setError(null);
 
     try {
-      const response = await propertyAPI.getTradeHistory({
+      const requestParams = {
         ...filters,
         ...params,
         page: params.page || pagination.page,
-        page_size: params.page_size || pagination.pageSize,
+        page_size: params.page_size || filters.page_size || pagination.pageSize,
+        months: params.months || filters.months || 12,
+      };
+
+      console.log('🔍 실거래가 API 요청:', requestParams);
+
+      const response = await propertyAPI.getTradeHistory(requestParams);
+
+      console.log('✅ 실거래가 응답:', {
+        total: response.data.total,
+        received: response.data.properties?.length,
+        page: response.data.page
       });
 
       setProperties(response.data.properties);
