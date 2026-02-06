@@ -8,7 +8,7 @@ class Settings(BaseSettings):
 
     # API 설정
     MOLIT_API_KEY: str = ""
-    MOLIT_API_BASE_URL: str = "http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc"
+    MOLIT_API_BASE_URL: str = "https://apis.data.go.kr/1613000"
 
     # 캐시 설정
     CACHE_DURATION: int = 3600  # 1시간

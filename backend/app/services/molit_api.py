@@ -134,7 +134,7 @@ class MolitAPIService:
             "numOfRows": "1000"
         }
 
-        data = await self._fetch_data("getRTMSDataSvcAptTradeDev", params)
+        data = await self._fetch_data("RTMSDataSvcAptTrade/getRTMSDataSvcAptTrade", params)
 
         items = data.get("response", {}).get("body", {}).get("items", {})
         if isinstance(items, dict):
@@ -165,7 +165,7 @@ class MolitAPIService:
             "numOfRows": "1000"
         }
 
-        data = await self._fetch_data("getRTMSDataSvcOffiTrade", params)
+        data = await self._fetch_data("RTMSDataSvcOffiTrade/getRTMSDataSvcOffiTrade", params)
 
         items = data.get("response", {}).get("body", {}).get("items", {})
         if isinstance(items, dict):

@@ -6,7 +6,7 @@ from app.models.schemas import (
     PropertyStatsResponse,
     PropertyType
 )
-from app.services.molit_api import molit_service
+from app.services.molit_api_xml import molit_service_xml as molit_service
 from app.services.r114_crawler import r114_crawler
 from app.core.config import settings
 
